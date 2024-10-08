@@ -39,6 +39,16 @@ class Utility:
             {
                 "$match": {"team": team}  # Match players from the specified team
             },
+                # Unwind the score, wicket, and catch arrays to deconstruct them
+            {
+                "$unwind": "$score"
+            },
+            {
+                "$unwind": "$wicket"
+            },
+            {
+                "$unwind": "$catch"
+            },
             {
                 "$group": {
                     "_id": "$player",
