@@ -19,7 +19,10 @@ class Utility:
                     "teamB": teamB,
                     "teamBlogo": teamBlogo,
                     "match_date": match.get("Date"),
-                    "time": match.get("Time")
+                    "time": match.get("Time"),
+                    "Winner": match.get("Winner"),
+                    "MoM": match.get("MoM")
+                    
                     }
                 match_data.append(match_dict)
             return match_data
