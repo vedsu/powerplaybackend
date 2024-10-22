@@ -38,7 +38,12 @@ class Utility:
             team_data = list(mongo.db.teams.find_one({"TeamName": team},
                                 {"_id":0}))
             team = team_data[0]
-            return team
+            team_dict={
+                "TeamName": speaker.get("TeamName"),
+                "Players": speaker.get("Players"),
+                
+            }
+            return team_dict
              # Correct aggregation pipeline
         #     pipeline = [
         #     {
