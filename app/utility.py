@@ -6,26 +6,26 @@ class Utility:
     def get_fixture():
         match_data = []
         try:
-            match_collections  = list(mongo.db.matches.find({},{"_id":0}).sort({"MatchID":1}))
-            for match in match_collections:
-                teamA = match.get("TeamA")
-                teamB = match.get("TeamB")
-                teamAlogo = mongo.db.registration.find_one({"TeamName": teamA}, {"_id":0, "TeamLogo":1})
-                teamBlogo = mongo.db.registration.find_one({"TeamName": teamB}, {"_id":0, "TeamLogo":1})
-                match_dict = {
-                    "match_id": match.get("MatchID"),
-                    "teamA": teamA,
-                    "teamAlogo": teamAlogo,
-                    "teamB": teamB,
-                    "teamBlogo": teamBlogo,
-                    "match_date": match.get("Date"),
-                    "time": match.get("Time"),
-                    "Winner": match.get("Winner"),
-                    "MoM": match.get("MoM")
+            team_collections  = list(mongo.db.registration.find({},{"_id":0, "TeamName":1, "TeamLogo":1}).sort({"TeamName":1}))
+            # for match in teams_collections:
+            #     teamA = match.get("TeamA")
+            #     teamB = match.get("TeamB")
+            #     teamAlogo = mongo.db.registration.find_one({"TeamName": teamA}, {"_id":0, "TeamLogo":1})
+            #     teamBlogo = mongo.db.registration.find_one({"TeamName": teamB}, {"_id":0, "TeamLogo":1})
+            #     match_dict = {
+            #         "match_id": match.get("MatchID"),
+            #         "teamA": teamA,
+            #         "teamAlogo": teamAlogo,
+            #         "teamB": teamB,
+            #         "teamBlogo": teamBlogo,
+            #         "match_date": match.get("Date"),
+            #         "time": match.get("Time"),
+            #         "Winner": match.get("Winner"),
+            #         "MoM": match.get("MoM")
                     
-                    }
-                match_data.append(match_dict)
-            return match_data
+            #         }
+            #     match_data.append(match_dict)
+            return team_collections
 
         except Exception as e:
             return(str(e))
