@@ -32,16 +32,16 @@ class Utility:
             # match_data = []
 
     @staticmethod
-    def get_details_by_team(team):
+    def get_details_by_team(regno):
         player_data = []
         try:
-            team_data = list(mongo.db.teams.find({},{"_id":0}))
-            # team = team_data[0]
-            # team_dict = {
-            # players: team.get("Players")
-            # }
+            team_data = list(mongo.db.teams.find({"T_id":regno}))
+            team = team_data[0]
+            team_dict = {
+            players: team.get("Players")
+            }
             
-            return team_data
+            return team_dict
              # Correct aggregation pipeline
         #     pipeline = [
         #     {
