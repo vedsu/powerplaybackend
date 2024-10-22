@@ -37,7 +37,7 @@ class Utility:
         try:
             team_data = list(mongo.db.teams.find_one({"TeamName": team},
                                 {"_id":0}))
-            return team_data
+            return team_data[0]
              # Correct aggregation pipeline
         #     pipeline = [
         #     {
