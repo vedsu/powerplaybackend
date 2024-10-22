@@ -35,7 +35,7 @@ class Utility:
     def get_details_by_team(team):
         player_data = []
         try:
-            team_data = list(mongo.db.teams.find_one({"TeamName": team},
+            team_data = list(mongo.db.teams.find({"TeamName": team},
                                 {"_id":0}))
             team = team_data[0]
             team_dict={
