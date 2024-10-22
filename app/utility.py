@@ -35,15 +35,9 @@ class Utility:
     def get_details_by_team(team):
         player_data = []
         try:
-            team_data = list(mongo.db.teams.find({"TeamName": team},
-                                {"_id":0}))
-            team = team_data[0]
-            team_dict={
-                "TeamName": speaker.get("TeamName"),
-                "Players": speaker.get("Players"),
-                
-            }
-            return team_dict
+            team_data = list(mongo.db.teams.find({},{"_id":0}))
+            
+            return team_data
              # Correct aggregation pipeline
         #     pipeline = [
         #     {
