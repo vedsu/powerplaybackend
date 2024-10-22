@@ -35,46 +35,49 @@ class Utility:
     def get_details_by_team(team):
         player_data = []
         try:
-            team_data = list(mongo.db.registration.find_one({"TeamName": team},
-                                {"_id":0, "TeamName":1, "TeamLogo":1, "ManagerName":1, "CaptainName":1}))
+            team_data = list(mongo.db.teams.find_one({"TeamName": team},
+                                {"_id":0}))
+            return team_data
              # Correct aggregation pipeline
-            pipeline = [
-            {
-                "$match": {"team": team}  # Match players from the specified team
-            },
-                # Unwind the score, wicket, and catch arrays to deconstruct them
-            {
-                "$unwind": "$score"
-            },
-            {
-                "$unwind": "$wicket"
-            },
-            {
-                "$unwind": "$catch"
-            },
-            {
-                "$group": {
-                    "_id": "$player",
-                    "player": { "$first": "$player" },
-                    "type": { "$first": "$type" },
-                    "photo": { "$first": "$photo" },
-                    "score": { "$sum": "$score" },
-                    "wicket": { "$sum": "$wicket" },
-                    "catch": { "$sum": "$catch" }
-                }
-            }
-        ]
-            player_details = list(mongo.db.players.aggregate(pipeline))
-            for player in player_details:
-                player_dict = {
-                    "player": player.get("player"),
-                    "photo": player.get("photo"),
-                    "type": player.get("type"),
-                    "score": player.get("score"),
-                    "wicket": player.get("wicket"),
-                    "catch": player.get("catch"),
-                }
-                player_data.append(player_dict)
-            return player_data,team_data
+        #     pipeline = [
+        #     {
+        #         "$match": {"team": team}  # Match players from the specified team
+        #     },
+        #         # Unwind the score, wicket, and catch arrays to deconstruct them
+        #     {
+        #         "$unwind": "$score"
+        #     },
+        #     {
+        #         "$unwind": "$wicket"
+        #     },
+        #     {
+        #         "$unwind": "$catch"
+        #     },
+        #     {
+        #         "$group": {
+        #             "_id": "$player",
+        #             "player": { "$first": "$player" },
+        #             "type": { "$first": "$type" },
+        #             "photo": { "$first": "$photo" },
+        #             "score": { "$sum": "$score" },
+        #             "wicket": { "$sum": "$wicket" },
+        #             "catch": { "$sum": "$catch" }
+        #         }
+        #     }
+        # ]
+        #     player_details = list(mongo.db.players.aggregate(pipeline))
+        #     for player in player_details:
+        #         player_dict = {
+        #             "player": player.get("player"),
+        #             "photo": player.get("photo"),
+        #             "type": player.get("type"),
+        #             "score": player.get("score"),
+        #             "wicket": player.get("wicket"),
+        #             "catch": player.get("catch"),
+        #         }
+        #         player_data.append(player_dict)
+            # return player_data,team_data
+            
         except Exception as e:
-            return str(e), "error"
+            return str(e)
+            # return str(e), "error"
